@@ -33,14 +33,13 @@ public class FormRecognizer
 	@Inject
 	ReceiptFactory receiptFactory;
 
-	public Receipt recognize() throws IOException
+	public Receipt recognize(String documentUrl) throws IOException
 	{
 		DocumentAnalysisClient client = new DocumentAnalysisClientBuilder()
 			.credential(new AzureKeyCredential(key))
 			.endpoint(endpoint)
 			.buildClient();
 
-		String documentUrl = "https://formrecognizer.appliedai.azure.com/documents/samples/prebuilt/receipt.png";
 		String modelId = "prebuilt-receipt";
 		SyncPoller<OperationResult, AnalyzeResult> analyzeDocumentPoller =
 			client.beginAnalyzeDocumentFromUrl(modelId, documentUrl);

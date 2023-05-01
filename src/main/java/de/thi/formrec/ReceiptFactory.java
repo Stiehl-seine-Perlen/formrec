@@ -1,16 +1,14 @@
 package de.thi.formrec;
 
 import com.azure.ai.formrecognizer.documentanalysis.models.AnalyzedDocument;
-import com.azure.ai.formrecognizer.documentanalysis.models.CurrencyValue;
 import com.azure.ai.formrecognizer.documentanalysis.models.DocumentField;
 import de.thi.formrec.model.Item;
 import de.thi.formrec.model.Receipt;
 import org.javamoney.moneta.Money;
 
 import javax.enterprise.context.ApplicationScoped;
-import javax.print.Doc;
-import java.util.Currency;
 import java.util.Map;
+import java.util.Optional;
 
 @ApplicationScoped
 public class ReceiptFactory
@@ -20,10 +18,7 @@ public class ReceiptFactory
 		Map<String, DocumentField> fields = analyzedDocument.getFields();
 
 		Receipt receipt = new Receipt();
-		receipt.setMerchant(fields.get("MerchantName").getValueAsString());
-		receipt.setTotal(asMoney(fields.get("Total").getValueAsDouble()));
-		receipt.setSubTotal(asMoney(fields.get("Subtotal").getValueAsDouble()));
-		receipt.setTotalTax(asMoney(fields.get("TotalTax").getValueAsDouble()));
+		setHeaderFields(fields, receipt);
 
 		for (DocumentField field : fields.get("Items").getValueAsList())
 		{
@@ -40,8 +35,35 @@ public class ReceiptFactory
 		return receipt;
 	}
 
+	private void setHeaderFields(Map<String, DocumentField> fields, Receipt receipt)
+	{
+		String merchantName = Optional.ofNullable(fields.get("MerchantName"))
+			.map(DocumentField::getValueAsString)
+			.orElse(null);
+		receipt.setMerchant(merchantName);
+
+		Money total = asMoney(Optional.ofNullable(fields.get("Total"))
+			.map(DocumentField::getValueAsDouble)
+			.orElse(null));
+		receipt.setTotal(total);
+
+		Money subtotal = asMoney(Optional.ofNullable(fields.get("Subtotal"))
+			.map(DocumentField::getValueAsDouble)
+			.orElse(null));
+		receipt.setSubTotal(subtotal);
+
+		Money totalTax = asMoney(Optional.ofNullable(fields.get("TotalTax"))
+			.map(DocumentField::getValueAsDouble)
+			.orElse(null));
+		receipt.setTotalTax(totalTax);
+	}
+
 	private static Money asMoney(Double currencyValue)
 	{
+		if (currencyValue == null)
+		{
+			return null;
+		}
 		return Money.of(currencyValue, "EUR");
 	}
 }
