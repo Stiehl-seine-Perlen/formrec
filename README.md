@@ -1,6 +1,6 @@
 # formrec
 
-This example shocases a simple implementation layer of the [Microsoft Azure Formrecogizer API](https://azure.microsoft.com/en-us/products/form-recognizer/) using BPMN with Kogito and Quarkus. It is both usable via REST and BPMN messages. 
+This example shocases a simple implementation layer of the [Microsoft Azure Form Recognizer AI](https://azure.microsoft.com/en-us/products/form-recognizer/) using BPMN with Kogito and Quarkus. It is both usable via REST and BPMN messages. 
 
 ## Configuration
 
