@@ -1,7 +1,7 @@
 package de.thi.formrec.service;
 
+import de.benevolo.entities.finance.Receipt;
 import de.thi.formrec.FormRecognizer;
-import de.thi.formrec.model.Receipt;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -22,6 +22,8 @@ public class UploadReceipt {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.TEXT_PLAIN)
     public Receipt uploadReceipt(String url) throws IOException {
-        return formRecognizer.recognize(url);
+        //TODO Service to transform Markus Reicept to Matze Receipt
+        //return formRecognizer.recognize(url);
+        return  null;
     }
 }
