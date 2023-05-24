@@ -20,6 +20,6 @@ public class UploadReceipt {
 
 
     public Set<FinancialTransaction> uploadReceipt(String url) throws IOException {
-        return receiptTransform.transform(formRecognizer.recognize(url)).getFinancialTransactions();
+        return receiptTransform.transform(formRecognizer.recognize(url));
     }
 }
