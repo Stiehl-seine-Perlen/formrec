@@ -1,0 +1,19 @@
+version: '3.9'
+
+services:
+
+  form-rec-dev:
+    user: 185:33
+    ports:
+      - 8080:8080
+    image: 'docker.benevolo.de/stiehl-seine-perlen/form-rec:dev'
+    restart: unless-stopped
+    environment:
+      DE_THI_AZURE_ENDPOINT: https://exentra-eval.cognitiveservices.azure.com/
+      DE_THI_AZURE_KEY: ${DE_THI_AZURE_KEY}
+    networks:
+      - kafka
+
+networks:
+  kafka:
+    external: true
