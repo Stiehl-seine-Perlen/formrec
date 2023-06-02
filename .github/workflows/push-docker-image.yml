@@ -29,10 +29,7 @@ jobs:
           cache: "maven"
 
       - name: "Build the maven package"
-        run: ACCESS_TOKEN=${{secrets.GH_REGISTRY_ACCESS_PASSWORD}} \
-          DE_THI_AZURE_ENDPOINT=https://exentra-eval.cognitiveservices.azure.com/ \
-          DE_THI_AZURE_KEY=${{secrets.DE_THI_AZURE_KEY}} \
-          mvn -X -s $GITHUB_WORKSPACE/.github/maven/settings.xml -B package --file pom.xml
+        run: ACCESS_TOKEN=${{secrets.GH_REGISTRY_ACCESS_PASSWORD}} DE_THI_AZURE_ENDPOINT=https://exentra-eval.cognitiveservices.azure.com/ DE_THI_AZURE_KEY=${{secrets.DE_THI_AZURE_KEY}} mvn -X -s $GITHUB_WORKSPACE/.github/maven/settings.xml -B package --file pom.xml
 
       - name: "Build and test form-rec image"
         run: |
