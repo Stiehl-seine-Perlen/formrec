@@ -30,7 +30,7 @@ jobs:
 
       - name: "Build the maven package"
         run: ACCESS_TOKEN=${{secrets.GH_REGISTRY_ACCESS_PASSWORD}} \
-          DE_THI_AZURE_ENDPOINT=${{secrets.DE_THI_AZURE_ENDPOINT}} \
+          DE_THI_AZURE_ENDPOINT=https://exentra-eval.cognitiveservices.azure.com/ \
           DE_THI_AZURE_KEY=${{secrets.DE_THI_AZURE_KEY}} \
           mvn -X -s $GITHUB_WORKSPACE/.github/maven/settings.xml -B package --file pom.xml
 
