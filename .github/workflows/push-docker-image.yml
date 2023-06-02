@@ -39,6 +39,7 @@ jobs:
       - name: "Push form-rec image to self hosted docker image registry"
         run: |
           docker push docker.benevolo.de/stiehl-seine-perlen/form-rec:dev
-        # run: |
-        # curl -X POST https://portainer.benevolo.de/api/webhooks/3e91d8ec-e40c-4fba-a0c0-9caa002e5262
-      #- name: "Deploy new image"
+
+      - name: "Deploy new image"
+        run: |
+          curl -X POST https://portainer.benevolo.de/api/webhooks/ac81dcea-12a0-4631-be74-a4d3e56fad52
