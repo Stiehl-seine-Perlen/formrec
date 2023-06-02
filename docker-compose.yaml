@@ -4,8 +4,6 @@ services:
 
   form-rec-dev:
     user: 185:33
-    ports:
-      - 8089:8080
     image: 'docker.benevolo.de/stiehl-seine-perlen/form-rec:dev'
     restart: unless-stopped
     environment:
