@@ -2,7 +2,7 @@ package de.thi.formrec.service;
 
 import de.benevolo.entities.finance.FinancialTransaction;
 import de.thi.formrec.model.Receipt;
-
+import org.javamoney.moneta.Money;
 import javax.enterprise.context.ApplicationScoped;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -14,8 +14,13 @@ public class ReceiptTransform {
         return receiptOld.getItems().stream()
                 .map(item -> {
                     FinancialTransaction transaction = new FinancialTransaction();
-                    transaction.setAmount(item.getTotalPrice().getNumberStripped());
-                    transaction.setTransactionName(item.getDescription());
+
+                    Money totalPrice = item.getTotalPrice();
+                    transaction.setAmount((totalPrice != null) ? totalPrice.getNumberStripped() : null);
+
+                    String description = item.getDescription();
+                    transaction.setTransactionName((description != null) ? description : null);
+
                     return transaction;
                 }).collect(Collectors.toSet());
     }
