@@ -1,13 +1,10 @@
 package de.thi.formrec;
 
 import de.thi.formrec.model.Receipt;
-import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import org.junit.jupiter.api.Test;
-
 import javax.inject.Inject;
 import java.io.IOException;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,6 +25,7 @@ public class FormRecognizerTests {
 		// then
 		assertEquals(receipt.getMerchant(), "Contoso");
 		assertThat(receipt.getItems(), hasSize(2));
+
 	}
 
 	@Test
@@ -43,6 +41,7 @@ public class FormRecognizerTests {
 		assertThat(receipt.getItems(), hasSize(4));
 
 		assertEquals("EUR 15.90", receipt.getItems().get(0).getTotalPrice().toString());
+		assertEquals(receipt.getDate().toString(), "2023-02-16");
 
 	}
 

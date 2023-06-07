@@ -14,8 +14,11 @@ import java.util.Optional;
 public class ReceiptFactory {
 	public Receipt create(AnalyzedDocument analyzedDocument) {
 		Map<String, DocumentField> fields = analyzedDocument.getFields();
-
+		DocumentField date = fields.get("TransactionDate");
 		Receipt receipt = new Receipt();
+		if (date != null) {
+			receipt.setDate(date.getValueAsDate());
+		}
 		setHeaderFields(fields, receipt);
 
 		for (DocumentField field : fields.get("Items").getValueAsList()) {
